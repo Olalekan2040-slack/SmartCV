@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from typing import List
+from typing import List, Optional
 import os
 from dotenv import load_dotenv
 
@@ -18,30 +18,34 @@ class Settings(BaseSettings):
     # CORS
     ALLOWED_HOSTS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
     
-    # Redis
-    REDIS_URL: str = "redis://localhost:6379"
+    # Redis (optional)
+    REDIS_URL: Optional[str] = None
     
-    # Celery
-    CELERY_BROKER_URL: str = "redis://localhost:6379/0"
-    CELERY_RESULT_BACKEND: str = "redis://localhost:6379/0"
+    # Celery (optional)
+    CELERY_BROKER_URL: Optional[str] = None
+    CELERY_RESULT_BACKEND: Optional[str] = None
     
-    # Stripe
-    STRIPE_SECRET_KEY: str = "sk_test_..."
-    STRIPE_PUBLISHABLE_KEY: str = "pk_test_..."
-    STRIPE_WEBHOOK_SECRET: str = "whsec_..."
+    # Stripe (optional)
+    STRIPE_SECRET_KEY: Optional[str] = None
+    STRIPE_PUBLISHABLE_KEY: Optional[str] = None
+    STRIPE_WEBHOOK_SECRET: Optional[str] = None
     
     # Email (optional)
     SMTP_HOST: str = "smtp.gmail.com"
     SMTP_PORT: int = 587
-    SMTP_USER: str = ""
-    SMTP_PASSWORD: str = ""
+    SMTP_USER: Optional[str] = None
+    SMTP_PASSWORD: Optional[str] = None
     
-    # AI Configuration
-    GEMINI_API_KEY: str = ""
+    # AI Configuration (optional)
+    GEMINI_API_KEY: Optional[str] = None
     
     # File upload
     MAX_FILE_SIZE: int = 5 * 1024 * 1024  # 5MB
-    UPLOAD_DIR: str = "uploads/"
+    UPLOAD_DIR: str = "/tmp/uploads/"
+    
+    # Environment
+    ENVIRONMENT: str = "development"
+    DEBUG: bool = True
     
     class Config:
         env_file = ".env"

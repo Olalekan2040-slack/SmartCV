@@ -1,27 +1,21 @@
-#!/usr/bin/env bash
-# build.sh
+#!/bin/bash
 
-set -o errexit  # exit on error
+set -e  # Exit on any error
 
 echo "Starting build process..."
 
-# Update pip and setuptools
-pip install --upgrade pip setuptools wheel
+# Upgrade pip to latest version
+python -m pip install --upgrade pip
 
-# Install system dependencies that might be needed
-echo "Installing system packages..."
+# Install wheel and setuptools first
+pip install wheel setuptools
 
-# Install Python dependencies
-echo "Installing Python dependencies..."
-pip install -r requirements.txt
+# Install dependencies with no cache and force reinstall for problematic packages
+pip install --no-cache-dir -r requirements.txt
 
-# Create uploads directory
+echo "Dependencies installed successfully!"
+
+# Create necessary directories
 mkdir -p /tmp/uploads
-
-# Run database migrations (if using Alembic)
-if [ -f "alembic.ini" ]; then
-    echo "Running database migrations..."
-    alembic upgrade head
-fi
 
 echo "Build completed successfully!"
