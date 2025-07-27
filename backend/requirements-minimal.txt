@@ -1,0 +1,13 @@
+# Ultra-minimal requirements to avoid any compilation issues
+fastapi
+uvicorn
+gunicorn
+sqlalchemy
+psycopg2-binary
+alembic
+pydantic
+pydantic-settings
+PyJWT
+python-multipart
+python-dotenv
+reportlab

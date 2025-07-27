@@ -1,24 +1,23 @@
-# Core FastAPI - absolute minimum
-fastapi==0.104.1
-uvicorn==0.24.0
-gunicorn==21.2.0
+# Core FastAPI - no versions to avoid conflicts
+fastapi
+uvicorn
+gunicorn
 
 # Database - PostgreSQL only
-sqlalchemy==2.0.23
-psycopg2-binary==2.9.9
-alembic==1.12.1
+sqlalchemy
+psycopg2-binary
+alembic
 
 # Pydantic for data validation
-pydantic==2.5.0
-pydantic-settings==2.1.0
+pydantic
+pydantic-settings
 
-# Security - minimal auth
-python-jose==3.3.0
-passlib==1.7.4
+# Security - use PyJWT only, no passlib
+PyJWT
 
 # Basic utilities
-python-multipart==0.0.6
-python-dotenv==1.0.0
+python-multipart
+python-dotenv
 
 # PDF Generation
-reportlab==4.0.7
+reportlab
