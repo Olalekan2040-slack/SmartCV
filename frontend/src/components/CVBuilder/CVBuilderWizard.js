@@ -70,7 +70,7 @@ const CVBuilderWizard = ({ cvId }) => {
     if (cvId) {
       loadCvData();
     }
-  }, [cvId]);
+  }, [cvId, loadCvData]);
 
   const loadCvData = async () => {
     try {
@@ -99,7 +99,7 @@ const CVBuilderWizard = ({ cvId }) => {
       if (cvId) {
         await api.put(`/cv/${cvId}`, cvData);
       } else {
-        const response = await api.post('/cv', cvData);
+        await api.post('/cv', cvData);
         // Handle new CV creation if needed
       }
       setLastSaved(new Date().toLocaleTimeString());

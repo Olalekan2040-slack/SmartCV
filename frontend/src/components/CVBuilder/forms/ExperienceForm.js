@@ -177,7 +177,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
     }
   };
 
-  const useAiSuggestion = (expIndex, suggestion) => {
+  const handleUseAiSuggestion = (expIndex, suggestion) => {
     const updatedExperience = [...experienceList];
     updatedExperience[expIndex].description.push(suggestion);
     setExperienceList(updatedExperience);
@@ -205,7 +205,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
         handleDescriptionChange(index, 0, '');
       }
     });
-  }, []);
+  }, [experienceList, handleDescriptionChange]);
 
   return (
     <div className="space-y-6">

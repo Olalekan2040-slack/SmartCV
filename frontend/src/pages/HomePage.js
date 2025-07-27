@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import logo from '../assets/logo.svg';
 
 const HomePage = () => {
   const { isAuthenticated } = useAuth();

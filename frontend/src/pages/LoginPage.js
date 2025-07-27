@@ -87,9 +87,9 @@ const LoginPage = () => {
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
-                <a href="#" className="font-medium text-blue-400 hover:text-blue-300">
+                <button type="button" className="font-medium text-blue-400 hover:text-blue-300">
                   Forgot your password?
-                </a>
+                </button>
               </div>
             </div>
 

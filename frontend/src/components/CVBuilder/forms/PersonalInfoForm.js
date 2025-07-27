@@ -57,7 +57,7 @@ const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
       case 'phone':
         if (!value.trim()) {
           newErrors[name] = 'Phone number is required';
-        } else if (!/^[\+]?[0-9\s\-\(\)]+$/.test(value)) {
+        } else if (!/^[+]?[0-9\s\-()]+$/.test(value)) {
           newErrors[name] = 'Please enter a valid phone number';
         } else {
           delete newErrors[name];

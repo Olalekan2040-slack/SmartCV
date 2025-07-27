@@ -115,8 +115,10 @@ export const authService = {
   updateUser: (userData) => authAPI.put('/me', userData),
 };
 
-export default {
+const apiServices = {
   cvService,
   paymentService,
   authService,
 };
+
+export default apiServices;

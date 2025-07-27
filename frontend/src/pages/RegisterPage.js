@@ -154,13 +154,13 @@ const RegisterPage = () => {
 
           <div className="text-xs text-gray-500 text-center">
             By creating an account, you agree to our{' '}
-            <a href="#" className="text-blue-400 hover:text-blue-300">
+            <button type="button" className="text-blue-400 hover:text-blue-300">
               Terms of Service
-            </a>{' '}
+            </button>{' '}
             and{' '}
-            <a href="#" className="text-blue-400 hover:text-blue-300">
+            <button type="button" className="text-blue-400 hover:text-blue-300">
               Privacy Policy
-            </a>
+            </button>
           </div>
         </form>
         </div>

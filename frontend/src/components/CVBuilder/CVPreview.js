@@ -18,7 +18,7 @@ const CVPreview = ({ data, templateId, isPremium }) => {
     return () => {
       document.removeEventListener('exportCV', handleExportEvent);
     };
-  }, []);
+  }, [exportToPDF]);
 
   // Generate preview content based on the current data
   const previewData = useMemo(() => {

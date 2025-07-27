@@ -21,7 +21,7 @@ const ReferencesForm = ({ data, onUpdate, isPremium }) => {
 
     if (!ref.contact.trim()) {
       refErrors.contact = 'Contact information is required';
-    } else if (!ref.contact.includes('@') && !/^\+?[\d\s\-\(\)]+$/.test(ref.contact)) {
+    } else if (!ref.contact.includes('@') && !/^[+]?[\d\s\-()]+$/.test(ref.contact)) {
       refErrors.contact = 'Please provide a valid email or phone number';
     }
 
