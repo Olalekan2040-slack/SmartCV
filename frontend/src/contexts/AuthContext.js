@@ -17,15 +17,13 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem('token'));
 
-  useEffect(() => {
-    if (token) {
-      // Set the token in axios headers
-      authAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      fetchUser();
-    } else {
-      setLoading(false);
-    }
-  }, [token, fetchUser]);
+  const logout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setUser(null);
+    delete authAPI.defaults.headers.common['Authorization'];
+    toast.success('Logged out successfully');
+  };
 
   const fetchUser = async () => {
     try {
@@ -42,6 +40,16 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      // Set the token in axios headers
+      authAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      fetchUser();
+    } else {
+      setLoading(false);
+    }
+  }, [token]); // Remove fetchUser from dependencies to avoid circular reference
 
   const login = async (email, password) => {
     try {
@@ -72,14 +80,6 @@ export const AuthProvider = ({ children }) => {
       toast.error(error.response?.data?.detail || 'Registration failed');
       return false;
     }
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-    setUser(null);
-    delete authAPI.defaults.headers.common['Authorization'];
-    toast.success('Logged out successfully');
   };
 
   const updateUser = async (userData) => {
