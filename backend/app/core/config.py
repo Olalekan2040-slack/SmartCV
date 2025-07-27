@@ -8,7 +8,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # Database
-    DATABASE_URL: str
+    DATABASE_URL: Optional[str] = None
     
     # JWT
     SECRET_KEY: str = "your-super-secret-key-change-this-in-production"
@@ -51,3 +51,7 @@ class Settings(BaseSettings):
         env_file = ".env"
 
 settings = Settings()
+
+# Validate required settings
+if not settings.DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is required")
