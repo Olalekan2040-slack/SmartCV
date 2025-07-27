@@ -1,13 +1,20 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
-import stripe
+try:
+    import stripe
+    STRIPE_AVAILABLE = True
+except ImportError:
+    STRIPE_AVAILABLE = False
+    stripe = None
+
 from app.models.database import get_db
 from app.models.models import User, Subscription
 from app.core.auth import get_current_user
 from app.core.config import settings
 
-# Configure Stripe
-stripe.api_key = settings.STRIPE_SECRET_KEY
+# Configure Stripe if available
+if STRIPE_AVAILABLE and settings.STRIPE_SECRET_KEY:
+    stripe.api_key = settings.STRIPE_SECRET_KEY
 
 router = APIRouter()
 
@@ -18,6 +25,18 @@ async def create_checkout_session(
     db: Session = Depends(get_db)
 ):
     """Create a Stripe checkout session for subscription."""
+    if not STRIPE_AVAILABLE:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Payment processing is currently unavailable"
+        )
+    
+    if not settings.STRIPE_SECRET_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Payment service not configured"
+        )
+    
     try:
         # Define pricing based on plan
         prices = {
@@ -50,15 +69,27 @@ async def create_checkout_session(
         
         return {'checkout_url': checkout_session.url}
         
-    except stripe.error.StripeError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Stripe error: {str(e)}"
-        )
+    except Exception as e:
+        if STRIPE_AVAILABLE and 'stripe.error.StripeError' in str(type(e)):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Stripe error: {str(e)}"
+            )
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Payment processing error: {str(e)}"
+            )
 
 @router.post("/webhook")
 async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
     """Handle Stripe webhook events."""
+    if not STRIPE_AVAILABLE:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Payment processing is currently unavailable"
+        )
+    
     payload = await request.body()
     sig_header = request.headers.get('stripe-signature')
     
@@ -68,8 +99,11 @@ async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
         )
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid payload")
-    except stripe.error.SignatureVerificationError:
-        raise HTTPException(status_code=400, detail="Invalid signature")
+    except Exception as e:
+        if 'SignatureVerificationError' in str(type(e)):
+            raise HTTPException(status_code=400, detail="Invalid signature")
+        else:
+            raise HTTPException(status_code=400, detail="Webhook processing error")
     
     # Handle the event
     if event['type'] == 'checkout.session.completed':
@@ -170,6 +204,12 @@ async def cancel_subscription(
     db: Session = Depends(get_db)
 ):
     """Cancel user's subscription."""
+    if not STRIPE_AVAILABLE:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Payment processing is currently unavailable"
+        )
+    
     subscription = db.query(Subscription).filter(
         Subscription.user_id == current_user.id,
         Subscription.status == 'active'
@@ -193,8 +233,14 @@ async def cancel_subscription(
         
         return {'message': 'Subscription canceled successfully'}
         
-    except stripe.error.StripeError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Failed to cancel subscription: {str(e)}"
-        )
+    except Exception as e:
+        if STRIPE_AVAILABLE and 'stripe.error.StripeError' in str(type(e)):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Failed to cancel subscription: {str(e)}"
+            )
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Subscription cancellation error: {str(e)}"
+            )
