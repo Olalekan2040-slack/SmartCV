@@ -3,7 +3,7 @@ import React from 'react';
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   static getDerivedStateFromError(error) {
@@ -12,6 +12,7 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     console.error('Error Boundary caught an error:', error, errorInfo);
+    this.setState({ errorInfo });
   }
 
   render() {
@@ -29,9 +30,27 @@ class ErrorBoundary extends React.Component {
             </button>
             <details className="mt-4 text-left">
               <summary className="cursor-pointer text-gray-400">Error Details</summary>
-              <pre className="text-red-400 text-sm mt-2 p-4 bg-gray-800 rounded overflow-auto">
-                {this.state.error?.toString()}
-              </pre>
+              <div className="text-red-400 text-sm mt-2 p-4 bg-gray-800 rounded overflow-auto">
+                <div className="mb-4">
+                  <strong>Error:</strong>
+                  <pre className="mt-1">{this.state.error?.toString()}</pre>
+                </div>
+                
+                {this.state.errorInfo && (
+                  <div className="mb-4">
+                    <strong>Component Stack:</strong>
+                    <pre className="mt-1 text-xs">{this.state.errorInfo.componentStack}</pre>
+                  </div>
+                )}
+                
+                <div className="mb-2 text-gray-300">
+                  <strong>Environment Info:</strong>
+                  <div className="text-xs mt-1">
+                    <div>API URL: {process.env.REACT_APP_API_URL || 'http://localhost:8000/api'}</div>
+                    <div>Environment: {process.env.NODE_ENV}</div>
+                  </div>
+                </div>
+              </div>
             </details>
           </div>
         </div>
