@@ -16,7 +16,20 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
     # CORS
-    ALLOWED_HOSTS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    ALLOWED_HOSTS: List[str] = [
+        "http://localhost:3000", 
+        "http://127.0.0.1:3000",
+        "https://smartcv-tau.vercel.app",
+        "https://*.vercel.app"  # Allow all Vercel subdomains
+    ]
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        # Add CORS origins from environment variable if set
+        cors_origins = os.getenv("CORS_ORIGINS")
+        if cors_origins:
+            additional_origins = [origin.strip() for origin in cors_origins.split(",")]
+            self.ALLOWED_HOSTS.extend(additional_origins)
     
     # Redis (optional)
     REDIS_URL: Optional[str] = None
