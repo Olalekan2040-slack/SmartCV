@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../../../services/api';
+import { aiService } from '../../../services/api';
 
 const ExperienceForm = ({ data, onUpdate, isPremium }) => {
   const [experienceList, setExperienceList] = useState(
@@ -158,7 +158,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
 
     setAiLoading(prev => ({ ...prev, [expIndex]: true }));
     try {
-      const response = await api.post('/ai/suggest-job-description', {
+      const response = await aiService.suggestJobDescription({
         job_title: experience.job_title,
         company: experience.company,
         current_descriptions: experience.description,

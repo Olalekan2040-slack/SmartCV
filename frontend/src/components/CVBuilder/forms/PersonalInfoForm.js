@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../../../services/api';
+import { aiService } from '../../../services/api';
 
 const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
   const [formData, setFormData] = useState({
@@ -124,7 +124,7 @@ const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
 
     setIsGettingAiSuggestion(true);
     try {
-      const response = await api.post('/ai/suggest-summary', {
+      const response = await aiService.suggestSummary({
         full_name: formData.full_name,
         current_summary: formData.summary,
         context: 'professional_summary'

@@ -29,6 +29,13 @@ export const paymentsAPI = axios.create({
   },
 });
 
+export const aiAPI = axios.create({
+  baseURL: `${API_BASE_URL}/ai`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 // Request interceptor to add auth token
 const addAuthInterceptor = (apiInstance) => {
   apiInstance.interceptors.request.use(
@@ -62,6 +69,7 @@ const addAuthInterceptor = (apiInstance) => {
 addAuthInterceptor(authAPI);
 addAuthInterceptor(cvAPI);
 addAuthInterceptor(paymentsAPI);
+addAuthInterceptor(aiAPI);
 
 // CV API functions
 export const cvService = {
@@ -120,10 +128,20 @@ export const authService = {
   updateUser: (userData) => authAPI.put('/me', userData),
 };
 
+// AI API functions
+export const aiService = {
+  // Suggest summary
+  suggestSummary: (data) => aiAPI.post('/suggest-summary', data),
+  
+  // Suggest job description
+  suggestJobDescription: (data) => aiAPI.post('/suggest-job-description', data),
+};
+
 const apiServices = {
   cvService,
   paymentService,
   authService,
+  aiService,
 };
 
 export default apiServices;
