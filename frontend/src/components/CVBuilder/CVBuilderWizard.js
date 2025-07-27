@@ -11,7 +11,7 @@ import AwardsForm from './forms/AwardsForm';
 import ReferencesForm from './forms/ReferencesForm';
 import CVPreview from './CVPreview';
 import TemplateSelector from './TemplateSelector';
-import api from '../../services/api';
+import { cvService } from '../../services/api';
 
 const CVBuilderWizard = ({ cvId }) => {
   const { user } = useAuth();
@@ -53,7 +53,7 @@ const CVBuilderWizard = ({ cvId }) => {
     const autoSave = async () => {
       if (cvId && Object.keys(cvData.personal_info).length > 0) {
         try {
-          await api.put(`/cv/${cvId}`, cvData);
+          await cvService.updateCV(cvId, cvData);
           setLastSaved(new Date().toLocaleTimeString());
         } catch (error) {
           console.error('Auto-save failed:', error);
@@ -66,16 +66,10 @@ const CVBuilderWizard = ({ cvId }) => {
   }, [cvData, cvId]);
 
   // Load existing CV data
-  useEffect(() => {
-    if (cvId) {
-      loadCvData();
-    }
-  }, [cvId, loadCvData]);
-
   const loadCvData = async () => {
     try {
       setIsLoading(true);
-      const response = await api.get(`/cv/${cvId}`);
+      const response = await cvService.getCV(cvId);
       setCvData(response.data);
       setSelectedTemplate(response.data.template_id || 1);
     } catch (error) {
@@ -84,6 +78,12 @@ const CVBuilderWizard = ({ cvId }) => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (cvId) {
+      loadCvData();
+    }
+  }, [cvId]); // Remove loadCvData from dependencies to avoid circular reference
 
   const updateCvData = (section, data) => {
     setCvData(prev => ({
@@ -97,9 +97,9 @@ const CVBuilderWizard = ({ cvId }) => {
     try {
       setIsLoading(true);
       if (cvId) {
-        await api.put(`/cv/${cvId}`, cvData);
+        await cvService.updateCV(cvId, cvData);
       } else {
-        await api.post('/cv', cvData);
+        await cvService.createCV(cvData);
         // Handle new CV creation if needed
       }
       setLastSaved(new Date().toLocaleTimeString());
