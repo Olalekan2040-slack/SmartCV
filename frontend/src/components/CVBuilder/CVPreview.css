@@ -1,0 +1,171 @@
+/* CV Preview Styles */
+.cv-preview-container {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Custom scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thumb-gray-300::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-thumb-gray-300::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.scrollbar-thumb-gray-300::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Page break handling for multi-page CVs */
+@media print {
+  .cv-page {
+    page-break-after: always;
+    min-height: 297mm; /* A4 height */
+    width: 210mm; /* A4 width */
+    padding: 20mm;
+  }
+  
+  .cv-page:last-child {
+    page-break-after: avoid;
+  }
+  
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  .watermark {
+    display: block !important;
+  }
+}
+
+/* Fullscreen styles */
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Gold color for executive template */
+.text-gold-600 {
+  color: #d97706;
+}
+
+.border-gold-500 {
+  border-color: #f59e0b;
+}
+
+/* Template-specific enhancements */
+.template-professional {
+  font-family: 'Times New Roman', serif;
+}
+
+.template-creative {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.template-minimalist {
+  font-family: 'Source Sans Pro', sans-serif;
+  letter-spacing: 0.025em;
+}
+
+.template-executive {
+  font-family: 'Georgia', serif;
+}
+
+.template-tech {
+  font-family: 'Fira Code', 'Monaco', monospace;
+}
+
+.template-designer {
+  font-family: 'Poppins', sans-serif;
+}
+
+.template-academic {
+  font-family: 'Palatino', 'Book Antiqua', serif;
+}
+
+.template-international {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cv-preview-container {
+    padding: 1rem;
+  }
+  
+  .cv-content {
+    padding: 1rem;
+  }
+}
+
+/* Animation for smooth transitions */
+.zoom-transition {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Loading state */
+.export-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.export-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Print-specific styles */
+@page {
+  margin: 0.5in;
+  size: letter;
+}
+
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .cv-content {
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+  }
+}
