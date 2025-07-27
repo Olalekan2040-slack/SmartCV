@@ -1,0 +1,6 @@
+# Command to set environment variable in Vercel
+# Replace YOUR_ACTUAL_RENDER_URL with your real Render service URL
+
+vercel env add REACT_APP_API_URL production
+
+# When prompted, enter: https://YOUR_ACTUAL_RENDER_URL/api

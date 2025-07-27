@@ -33,7 +33,11 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
     } catch (error) {
       console.error('Failed to fetch user:', error);
-      logout();
+      // Don't logout immediately on API failure
+      // Just clear the token if it's actually invalid
+      if (error.response?.status === 401) {
+        logout();
+      }
     } finally {
       setLoading(false);
     }

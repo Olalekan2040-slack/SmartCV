@@ -2,6 +2,11 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
+// Debug logging for production
+console.log('API_BASE_URL:', API_BASE_URL);
+console.log('Environment:', process.env.NODE_ENV);
+console.log('All env vars:', Object.keys(process.env).filter(key => key.startsWith('REACT_APP_')));
+
 // Create axios instances for different endpoints
 export const authAPI = axios.create({
   baseURL: `${API_BASE_URL}/auth`,
