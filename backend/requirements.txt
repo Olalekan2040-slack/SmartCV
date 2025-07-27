@@ -11,6 +11,7 @@ alembic
 # Pydantic for data validation
 pydantic
 pydantic-settings
+email-validator
 
 # Security - use PyJWT only, no passlib
 PyJWT
