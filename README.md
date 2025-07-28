@@ -14,7 +14,7 @@
 
 <br>
 
-**🌟 [Live Demo](https://smartcv-demo.vercel.app) | 📚 [Documentation](./DEPLOYMENT.md) | 🐛 [Report Bug](https://github.com/Olalekan2040-slack/SmartCV/issues) | 💡 [Request Feature](https://github.com/Olalekan2040-slack/SmartCV/issues)**
+- **🚀 Live Demo**: https://smartcv-tau.vercel.app**
 
 </div>
 

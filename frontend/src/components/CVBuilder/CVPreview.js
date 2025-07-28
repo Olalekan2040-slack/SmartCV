@@ -8,18 +8,6 @@ const CVPreview = ({ data, templateId, isPremium }) => {
   const [isExporting, setIsExporting] = useState(false);
   const previewRef = useRef(null);
 
-  // Listen for export events from parent component
-  useEffect(() => {
-    const handleExportEvent = () => {
-      exportToPDF();
-    };
-    
-    document.addEventListener('exportCV', handleExportEvent);
-    return () => {
-      document.removeEventListener('exportCV', handleExportEvent);
-    };
-  }, [exportToPDF]);
-
   // Generate preview content based on the current data
   const previewData = useMemo(() => {
     return {
@@ -34,6 +22,51 @@ const CVPreview = ({ data, templateId, isPremium }) => {
       references: data.references || []
     };
   }, [data]);
+
+  // Export functionality
+  const exportToPDF = async () => {
+    if (!previewRef.current) return;
+    
+    setIsExporting(true);
+    try {
+      const element = previewRef.current;
+      const opt = {
+        margin: 0.5,
+        filename: `${previewData.personalInfo.full_name || previewData.personalInfo.fullName || 'CV'}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 2,
+          useCORS: true,
+          allowTaint: true
+        },
+        jsPDF: { 
+          unit: 'in', 
+          format: 'letter', 
+          orientation: 'portrait' 
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+      
+      await html2pdf().set(opt).from(element).save();
+    } catch (error) {
+      console.error('Export failed:', error);
+      alert('Export failed. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  // Listen for export events from parent component
+  useEffect(() => {
+    const handleExportEvent = () => {
+      exportToPDF();
+    };
+    
+    document.addEventListener('exportCV', handleExportEvent);
+    return () => {
+      document.removeEventListener('exportCV', handleExportEvent);
+    };
+  }, []);
 
   // Template styles with enhanced multi-page support
   const getTemplateStyles = (templateId) => {
@@ -136,39 +169,6 @@ const CVPreview = ({ data, templateId, isPremium }) => {
 
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
-  };
-
-  // Export functionality
-  const exportToPDF = async () => {
-    if (!previewRef.current) return;
-    
-    setIsExporting(true);
-    try {
-      const element = previewRef.current;
-      const opt = {
-        margin: 0.5,
-        filename: `${previewData.personalInfo.full_name || previewData.personalInfo.fullName || 'CV'}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2,
-          useCORS: true,
-          allowTaint: true
-        },
-        jsPDF: { 
-          unit: 'in', 
-          format: 'letter', 
-          orientation: 'portrait' 
-        },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-      
-      await html2pdf().set(opt).from(element).save();
-    } catch (error) {
-      console.error('Export failed:', error);
-      alert('Export failed. Please try again.');
-    } finally {
-      setIsExporting(false);
-    }
   };
 
   const printCV = () => {

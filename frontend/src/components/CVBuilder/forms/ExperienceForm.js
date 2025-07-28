@@ -205,7 +205,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
         handleDescriptionChange(index, 0, '');
       }
     });
-  }, [experienceList, handleDescriptionChange]);
+  }, [experienceList]);
 
   return (
     <div className="space-y-6">
