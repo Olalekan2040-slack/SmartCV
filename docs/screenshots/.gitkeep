@@ -1,0 +1,5 @@
+# This file ensures the screenshots directory is tracked in git
+# Add your actual screenshot files here:
+# - landing-page.png
+# - dashboard.png  
+# - cv-builder.png

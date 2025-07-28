@@ -3,8 +3,77 @@
 # 🎯 SmartCV
 ### AI-Powered Resume Builder with Dark Theme
 
-*Create stunning professional resumes with the power of artificial intelligence*
+*Create stunning professional resumes with the power of artifici---
 
+## 📱 Screenshots
+
+<div align="center">
+
+### 🏠 **Landing Page - Professional AI-Powered CV Builder**
+*Experience the future of CV creation with our intelligent platform*
+
+![SmartCV Landing Page](docs/screenshots/landing-page.png)
+
+**✨ Key Features Highlighted:**
+- 🤖 AI-powered content suggestions with GPT integration
+- 📊 Real-time statistics: 10K+ CVs created, 95% success rate
+- 🎯 Professional templates optimized for different industries
+- ⚡ Instant PDF export with watermark-free premium options
+
+---
+
+### 🏢 **User Dashboard - Welcome Experience**
+*Personalized dashboard for managing your professional documents*
+
+![SmartCV Dashboard](docs/screenshots/dashboard.png)
+
+**💼 Dashboard Insights:**
+- 📈 CV creation tracking and analytics
+- 💎 Account type and subscription management
+- 📥 Download limits and usage monitoring
+- 🚀 Quick access to create new CVs
+
+---
+
+### 🛠️ **CV Builder Interface - Interactive Design Studio**
+*Professional CV creation with real-time preview and AI assistance*
+
+![SmartCV Builder](docs/screenshots/cv-builder.png)
+
+**🎨 Builder Features:**
+- 🎯 Step-by-step form navigation with progress tracking
+- 👤 Smart template selection with professional designs
+- 📝 Real-time preview with instant updates
+- 🔧 Responsive design with zoom and editing controls
+- ✅ Form validation and completion status indicators
+
+---
+
+### 🌟 **Key Application Highlights**
+
+<table>
+<tr>
+<td width="33%" align="center">
+<img src="https://img.shields.io/badge/User_Experience-Exceptional-brightgreen?style=for-the-badge" alt="UX"/>
+<br><strong>Intuitive Interface</strong>
+<br>Clean, modern design with dark theme
+</td>
+<td width="33%" align="center">
+<img src="https://img.shields.io/badge/AI_Integration-Advanced-blue?style=for-the-badge" alt="AI"/>
+<br><strong>Smart Suggestions</strong>
+<br>GPT-powered content optimization
+</td>
+<td width="33%" align="center">
+<img src="https://img.shields.io/badge/Templates-Professional-purple?style=for-the-badge" alt="Templates"/>
+<br><strong>Premium Templates</strong>
+<br>Industry-specific designs
+</td>
+</tr>
+</table>
+
+</div>
+
+---
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776ab.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![React](https://img.shields.io/badge/React-18+-61dafb.svg?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
@@ -53,7 +122,29 @@ SmartCV is a comprehensive resume builder application that helps users create pr
 
 ---
 
-## 🏗️ Tech Stack
+## � Design & User Experience
+
+<div align="center">
+
+### 🌙 **Dark Theme Excellence**
+SmartCV features a modern, eye-friendly dark theme that reduces eye strain during extended CV building sessions.
+
+### 🎯 **Professional Aesthetics**
+- **Color Scheme**: Carefully chosen palette with purple accents for premium feel
+- **Typography**: Clean, readable fonts optimized for professional content
+- **Layout**: Spacious, well-organized interface with intuitive navigation
+- **Responsiveness**: Perfect experience across desktop, tablet, and mobile devices
+
+### ⚡ **Seamless Workflow**
+Our step-by-step builder guides users through the CV creation process with:
+- 📋 Clear progress indicators
+- ✅ Real-time validation feedback
+- 🔄 Auto-save functionality
+- 👁️ Instant live preview updates
+
+</div>
+
+---
 
 <div align="center">
 
