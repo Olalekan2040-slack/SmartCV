@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { authAPI } from '../services/api';
 import toast from 'react-hot-toast';
+import { handleError, ERROR_TYPES } from '../utils/errorHandler';
 
 const AuthContext = createContext();
 
@@ -31,8 +32,13 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
     } catch (error) {
       console.error('Failed to fetch user:', error);
-      // Don't logout immediately on API failure
-      // Just clear the token if it's actually invalid
+      // Handle circular dependency errors specifically
+      if (error.name === 'ReferenceError' && error.message.includes('Cannot access')) {
+        handleError(error, { context: 'AuthContext.fetchUser' });
+        return;
+      }
+      // Don't logout immediately on API failure - could be temporary
+      // Only logout on 401 errors
       if (error.response?.status === 401) {
         logout();
       }
