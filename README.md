@@ -14,8 +14,7 @@
 
 <br>
 
-**🚀 Live Demo**: [https://smartcv-tau.vercel.app](https://smartcv-tau.vercel.app)
-**⚡ Backend API**: [https://smartcv-8i8d.onrender.com](https://smartcv-8i8d.onrender.com)
+- **🚀 Live Demo**: https://smartcv-tau.vercel.app**
 
 </div>
 
@@ -205,7 +204,7 @@ Once the backend is running, explore the interactive API docs:
 
 <div align="center">
 
-**📊 [Swagger UI](https://smartcv-8i8d.onrender.com/docs) | 📚 [ReDoc](https://smartcv-8i8d.onrender.com/redoc)**
+**📊 [Swagger UI](http://localhost:8000/docs) | 📚 [ReDoc](http://localhost:8000/redoc)**
 
 </div>
 
@@ -270,22 +269,22 @@ Once the backend is running, explore the interactive API docs:
 
 ```env
 # Database
-DATABASE_URL=postgresql://user:password@host:5432/smartcv_db
+DATABASE_URL=postgresql://user:password@localhost/smartcv_db
 
 # JWT Authentication
 SECRET_KEY=your-super-secret-key-change-this-in-production
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 # Redis & Celery
-REDIS_URL=redis://redis-host:6379
-CELERY_BROKER_URL=redis://redis-host:6379/0
+REDIS_URL=redis://localhost:6379
+CELERY_BROKER_URL=redis://localhost:6379/0
 
 # Stripe Payments
 STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
 STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
 
 # CORS
-ALLOWED_HOSTS=["https://smartcv-tau.vercel.app"]
+ALLOWED_HOSTS=["http://localhost:3000"]
 ```
 
 </details>
@@ -295,7 +294,7 @@ ALLOWED_HOSTS=["https://smartcv-tau.vercel.app"]
 
 ```env
 # API Configuration
-REACT_APP_API_URL=https://smartcv-8i8d.onrender.com
+REACT_APP_API_URL=http://localhost:8000
 
 # Stripe
 REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_key
@@ -418,6 +417,6 @@ Give a ⭐️ if this project helped you!
 
 ### 🔗 Links
 
-**[🌐 Frontend App](https://smartcv-tau.vercel.app) • [⚡ Backend API](https://smartcv-8i8d.onrender.com) • [📚 API Docs](https://smartcv-8i8d.onrender.com/docs) • [🐛 Issues](https://github.com/Olalekan2040-slack/SmartCV/issues) • [💬 Discussions](https://github.com/Olalekan2040-slack/SmartCV/discussions)**
+**[🌐 Website](https://smartcv.com) • [📚 Docs](./DEPLOYMENT.md) • [🐛 Issues](https://github.com/Olalekan2040-slack/SmartCV/issues) • [💬 Discussions](https://github.com/Olalekan2040-slack/SmartCV/discussions)**
 
 </div>
