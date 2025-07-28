@@ -129,7 +129,7 @@ const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
         current_summary: formData.summary,
         context: 'professional_summary'
       });
-      setAiSuggestion(response.data.suggestion);
+      setAiSuggestion(String(response.data.suggestion || ''));
     } catch (error) {
       console.error('Failed to get AI suggestion:', error);
       alert('Failed to get AI suggestion. Please try again.');
@@ -368,7 +368,7 @@ const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
                 </button>
               </div>
             </div>
-            <p className="text-sm text-gray-700">{aiSuggestion}</p>
+            <p className="text-sm text-gray-700">{String(aiSuggestion)}</p>
           </div>
         )}
       </div>

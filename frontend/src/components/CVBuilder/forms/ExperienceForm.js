@@ -167,7 +167,9 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
       
       setAiSuggestions(prev => ({ 
         ...prev, 
-        [expIndex]: response.data.suggestions 
+        [expIndex]: Array.isArray(response.data.suggestions) 
+          ? response.data.suggestions.map(s => String(s)) 
+          : []
       }));
     } catch (error) {
       console.error('Failed to get AI suggestions:', error);
@@ -403,11 +405,11 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
                 <div className="space-y-2">
                   {aiSuggestions[expIndex].map((suggestion, index) => (
                     <div key={index} className="flex items-start justify-between p-2 bg-white rounded border">
-                      <span className="text-sm text-gray-700 flex-1">• {suggestion}</span>
+                      <span className="text-sm text-gray-700 flex-1">• {String(suggestion)}</span>
                       <button
                         onClick={() => {
                           const currentDescription = [...experienceList[expIndex].description];
-                          currentDescription.push(suggestion);
+                          currentDescription.push(String(suggestion));
                           handleDescriptionChange(expIndex, currentDescription);
                         }}
                         className="ml-2 px-2 py-1 bg-purple-600 text-white text-xs rounded hover:bg-purple-700"
