@@ -204,7 +204,7 @@ Once the backend is running, explore the interactive API docs:
 
 <div align="center">
 
-**📊 [Swagger UI](http://localhost:8000/docs) | 📚 [ReDoc](http://localhost:8000/redoc)**
+**📊 [Swagger UI](https://smartcv-8i8d.onrender.com/docs) | 📚 [ReDoc](https://smartcv-8i8d.onrender.com/redoc)**
 
 </div>
 
@@ -284,7 +284,7 @@ STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
 STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
 
 # CORS
-ALLOWED_HOSTS=["http://localhost:3000"]
+ALLOWED_HOSTS=["https://smartcv-tau.vercel.app"]
 ```
 
 </details>
@@ -294,7 +294,7 @@ ALLOWED_HOSTS=["http://localhost:3000"]
 
 ```env
 # API Configuration
-REACT_APP_API_URL=http://localhost:8000
+REACT_APP_API_URL=https://smartcv-8i8d.onrender.com
 
 # Stripe
 REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_key
