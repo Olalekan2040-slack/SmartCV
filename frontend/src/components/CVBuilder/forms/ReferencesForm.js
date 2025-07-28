@@ -238,9 +238,13 @@ const ReferencesForm = ({ data, onUpdate, isPremium }) => {
               <li key={key}>
                 <strong>Reference {key.split('_')[1] ? parseInt(key.split('_')[1]) + 1 : ''}:</strong>
                 <ul className="ml-4 mt-1">
-                  {Object.entries(errorObj).map(([field, error]) => (
-                    <li key={field}>• {error}</li>
-                  ))}
+                  {typeof errorObj === 'object' && errorObj !== null ? 
+                    Object.entries(errorObj).map(([field, error]) => (
+                      <li key={field}>• {String(error)}</li>
+                    )) : (
+                      <li>• {String(errorObj)}</li>
+                    )
+                  }
                 </ul>
               </li>
             ))}

@@ -379,7 +379,7 @@ const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
           <h4 className="text-sm font-medium text-red-900 mb-2">Please fix the following errors:</h4>
           <ul className="text-sm text-red-700 space-y-1">
             {Object.entries(errors).map(([field, error]) => (
-              <li key={field}>• {error}</li>
+              <li key={field}>• {String(error)}</li>
             ))}
           </ul>
         </div>
