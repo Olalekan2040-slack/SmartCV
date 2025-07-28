@@ -51,6 +51,7 @@ class Settings(BaseSettings):
     
     # AI Configuration (optional)
     GEMINI_API_KEY: Optional[str] = None
+    OPENAI_API_KEY: Optional[str] = None
     
     # File upload
     MAX_FILE_SIZE: int = 5 * 1024 * 1024  # 5MB

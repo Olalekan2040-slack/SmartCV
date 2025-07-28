@@ -4,6 +4,7 @@ from app.core.config import settings
 from app.api.auth import router as auth_router
 from app.api.cv import router as cv_router
 from app.api.payments import router as payments_router
+from app.api.ai import router as ai_router
 from app.models.database import engine, Base
 
 # Create database tables
@@ -29,6 +30,7 @@ app.add_middleware(
 app.include_router(auth_router, prefix="/api/auth", tags=["authentication"])
 app.include_router(cv_router, prefix="/api/cv", tags=["cv"])
 app.include_router(payments_router, prefix="/api/payments", tags=["payments"])
+app.include_router(ai_router, prefix="/api/ai", tags=["ai"])
 
 @app.get("/")
 async def root():
