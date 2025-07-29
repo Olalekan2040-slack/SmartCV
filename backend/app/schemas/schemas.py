@@ -17,6 +17,8 @@ class UserLogin(BaseModel):
 class User(UserBase):
     id: int
     is_premium: bool
+    two_factor_enabled: bool
+    email_verified: bool
     created_at: datetime
     
     class Config:
@@ -25,6 +27,37 @@ class User(UserBase):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+# 2FA Schemas
+class TwoFactorSetupRequest(BaseModel):
+    password: str  # Current password for verification
+
+class TwoFactorSetupResponse(BaseModel):
+    message: str
+    backup_codes: Optional[List[str]] = None
+
+class TwoFactorVerifyRequest(BaseModel):
+    email: EmailStr
+    password: str
+    verification_code: str
+
+class TwoFactorLoginRequest(BaseModel):
+    email: EmailStr
+    verification_code: str
+
+class TwoFactorDisableRequest(BaseModel):
+    password: str
+    verification_code: str
+
+class EmailVerificationRequest(BaseModel):
+    token: str
+
+class ResendVerificationRequest(BaseModel):
+    email: EmailStr
+
+class TwoFactorStatus(BaseModel):
+    two_factor_enabled: bool
+    email_verified: bool
 
 # Personal Information Schema
 class PersonalInfo(BaseModel):

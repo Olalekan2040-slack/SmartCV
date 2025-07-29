@@ -3,6 +3,7 @@ from typing import Optional
 import jwt
 import hashlib
 import secrets
+import string
 from fastapi import HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
@@ -101,3 +102,65 @@ def get_current_premium_user(current_user: User = Depends(get_current_user)) -> 
             detail="Premium subscription required"
         )
     return current_user
+
+# 2FA Helper Functions
+def generate_2fa_code(length: int = 6) -> str:
+    """Generate a random 2FA verification code."""
+    return ''.join(secrets.choice(string.digits) for _ in range(length))
+
+def generate_verification_token(length: int = 32) -> str:
+    """Generate a random email verification token."""
+    return secrets.token_urlsafe(length)
+
+def is_2fa_code_valid(user: User, provided_code: str) -> bool:
+    """Check if the provided 2FA code is valid and not expired."""
+    if not user.two_factor_code or not user.two_factor_code_expires:
+        return False
+    
+    # Check if code has expired
+    if datetime.utcnow() > user.two_factor_code_expires:
+        return False
+    
+    # Check if code matches
+    return secrets.compare_digest(user.two_factor_code, provided_code)
+
+def generate_backup_codes(count: int = 8) -> list[str]:
+    """Generate backup codes for 2FA recovery."""
+    codes = []
+    for _ in range(count):
+        # Generate 8-character alphanumeric backup codes
+        code = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+        # Format as XXXX-XXXX
+        formatted_code = f"{code[:4]}-{code[4:]}"
+        codes.append(formatted_code)
+    return codes
+
+def set_2fa_code(db: Session, user: User, code: str, expires_minutes: int = 10):
+    """Set 2FA code for user with expiration."""
+    user.two_factor_code = code
+    user.two_factor_code_expires = datetime.utcnow() + timedelta(minutes=expires_minutes)
+    db.commit()
+    db.refresh(user)
+
+def clear_2fa_code(db: Session, user: User):
+    """Clear 2FA code from user."""
+    user.two_factor_code = None
+    user.two_factor_code_expires = None
+    db.commit()
+    db.refresh(user)
+
+def set_email_verification_token(db: Session, user: User, token: str):
+    """Set email verification token for user."""
+    user.email_verification_token = token
+    db.commit()
+    db.refresh(user)
+
+def verify_email_token(db: Session, token: str) -> Optional[User]:
+    """Verify email verification token and return user."""
+    user = db.query(User).filter(User.email_verification_token == token).first()
+    if user:
+        user.email_verified = True
+        user.email_verification_token = None
+        db.commit()
+        db.refresh(user)
+    return user

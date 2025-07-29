@@ -11,6 +11,14 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     full_name = Column(String, nullable=False)
     is_premium = Column(Boolean, default=False)
+    
+    # 2FA fields
+    two_factor_enabled = Column(Boolean, default=False)
+    two_factor_code = Column(String, nullable=True)
+    two_factor_code_expires = Column(DateTime, nullable=True)
+    email_verified = Column(Boolean, default=False)
+    email_verification_token = Column(String, nullable=True)
+    
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     

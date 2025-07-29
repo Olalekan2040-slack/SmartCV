@@ -61,6 +61,9 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
     
+    # Frontend URL for email links
+    FRONTEND_URL: str = "https://smartcv-tau.vercel.app"
+    
     class Config:
         env_file = ".env"
 
