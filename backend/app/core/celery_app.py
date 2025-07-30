@@ -1,11 +1,14 @@
 from celery import Celery
 from app.core.config import settings
 
-# Create Celery instance
+# Create Celery instance with fallback configuration
+broker_url = settings.CELERY_BROKER_URL or "memory://"
+result_backend = settings.CELERY_RESULT_BACKEND or "cache+memory://"
+
 celery_app = Celery(
     "smartcv",
-    broker=settings.CELERY_BROKER_URL,
-    backend=settings.CELERY_RESULT_BACKEND,
+    broker=broker_url,
+    backend=result_backend,
     include=['app.tasks.pdf_tasks', 'app.tasks.email_tasks']
 )
 

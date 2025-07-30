@@ -25,3 +25,10 @@ reportlab
 
 # AI Integration
 openai
+
+# Background task processing
+celery
+redis
+
+# Email sending (for 2FA)
+# Note: Using standard library smtplib, no additional requirements

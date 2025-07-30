@@ -48,6 +48,12 @@ class Settings(BaseSettings):
     SMTP_PORT: int = 587
     SMTP_USER: Optional[str] = None
     SMTP_PASSWORD: Optional[str] = None
+    EMAIL_ENABLED: bool = False
+    
+    def __post_init__(self):
+        # Enable email if SMTP credentials are provided
+        if self.SMTP_USER and self.SMTP_PASSWORD:
+            self.EMAIL_ENABLED = True
     
     # AI Configuration (optional)
     GEMINI_API_KEY: Optional[str] = None

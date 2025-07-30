@@ -25,13 +25,81 @@ from app.core.auth import (
     verify_email_token,
     is_2fa_code_valid
 )
-from app.tasks.email_tasks import (
-    send_2fa_code_task,
-    send_email_verification_task,
-    send_login_notification_task
-)
+
+# Import email service directly for fallback
+from app.services.email_service import email_service
+
+# Try to import celery tasks, fallback to direct email sending if not available
+try:
+    from app.tasks.email_tasks import (
+        send_2fa_code_task,
+        send_email_verification_task,
+        send_login_notification_task
+    )
+    CELERY_AVAILABLE = True
+except ImportError:
+    CELERY_AVAILABLE = False
+    print("⚠️  Celery not available, using direct email sending")
 
 router = APIRouter()
+
+# Helper functions for email sending with celery fallback
+def send_verification_email(user_id: int, verification_token: str):
+    """Send verification email with celery fallback."""
+    if CELERY_AVAILABLE:
+        send_email_verification_task.delay(user_id, verification_token)
+    else:
+        # Direct email sending fallback
+        from app.models.database import get_db
+        db = next(get_db())
+        try:
+            user = db.query(User).filter(User.id == user_id).first()
+            if user:
+                email_service.send_email_verification(
+                    email=user.email,
+                    verification_token=verification_token,
+                    user_name=user.full_name
+                )
+        finally:
+            db.close()
+
+def send_2fa_code_email(user_id: int, code: str):
+    """Send 2FA code email with celery fallback."""
+    if CELERY_AVAILABLE:
+        send_2fa_code_task.delay(user_id, code)
+    else:
+        # Direct email sending fallback
+        from app.models.database import get_db
+        db = next(get_db())
+        try:
+            user = db.query(User).filter(User.id == user_id).first()
+            if user:
+                email_service.send_2fa_code(
+                    email=user.email,
+                    code=code,
+                    user_name=user.full_name
+                )
+        finally:
+            db.close()
+
+def send_login_notification_email(user_id: int, login_info: dict):
+    """Send login notification email with celery fallback."""
+    if CELERY_AVAILABLE:
+        send_login_notification_task.delay(user_id, login_info)
+    else:
+        # Direct email sending fallback
+        from app.models.database import get_db
+        db = next(get_db())
+        try:
+            user = db.query(User).filter(User.id == user_id).first()
+            if user:
+                email_service.send_login_notification(
+                    email=user.email,
+                    user_name=user.full_name,
+                    login_info=login_info
+                )
+        finally:
+            db.close()
 
 @router.post("/register", response_model=UserSchema)
 async def register(user_data: UserCreate, db: Session = Depends(get_db)):
@@ -60,7 +128,7 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
     
     # Send verification email
-    send_email_verification_task.delay(db_user.id, verification_token)
+    send_verification_email(db_user.id, verification_token)
     
     return db_user
 
@@ -82,7 +150,7 @@ async def login(user_credentials: UserLogin, request: Request, db: Session = Dep
         set_2fa_code(db, user, code)
         
         # Send 2FA code via email
-        send_2fa_code_task.delay(user.id, code)
+        send_2fa_code_email(user.id, code)
         
         raise HTTPException(
             status_code=status.HTTP_202_ACCEPTED,
@@ -98,7 +166,7 @@ async def login(user_credentials: UserLogin, request: Request, db: Session = Dep
         "ip": request.client.host if request.client else "Unknown",
         "device": request.headers.get("user-agent", "Unknown")
     }
-    send_login_notification_task.delay(user.id, login_info)
+    send_login_notification_email(user.id, login_info)
     
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -157,7 +225,7 @@ async def verify_2fa_login(
         "ip": request.client.host if request.client else "Unknown",
         "device": request.headers.get("user-agent", "Unknown")
     }
-    send_login_notification_task.delay(user.id, login_info)
+    send_login_notification_email(user.id, login_info)
     
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -215,7 +283,7 @@ async def disable_2fa(
             # Generate and send new code if not provided or invalid
             code = generate_2fa_code()
             set_2fa_code(db, current_user, code)
-            send_2fa_code_task.delay(current_user.id, code)
+            send_2fa_code_email(current_user.id, code)
             
             raise HTTPException(
                 status_code=status.HTTP_202_ACCEPTED,
@@ -277,7 +345,7 @@ async def resend_verification_email(
     set_email_verification_token(db, user, verification_token)
     
     # Send verification email
-    send_email_verification_task.delay(user.id, verification_token)
+    send_verification_email(user.id, verification_token)
     
     return {"message": "Verification email sent successfully"}
 
@@ -296,6 +364,6 @@ async def request_2fa_code(
     # Generate and send new 2FA code
     code = generate_2fa_code()
     set_2fa_code(db, current_user, code)
-    send_2fa_code_task.delay(current_user.id, code)
+    send_2fa_code_email(current_user.id, code)
     
     return {"message": "Verification code sent to your email"}

@@ -23,12 +23,16 @@ class EmailService:
     
     def _create_smtp_connection(self):
         """Create and configure SMTP connection."""
+        if not self.smtp_user or not self.smtp_password:
+            raise Exception("SMTP credentials not configured")
+            
         try:
             server = smtplib.SMTP(self.smtp_host, self.smtp_port)
             server.starttls()
             server.login(self.smtp_user, self.smtp_password)
             return server
         except Exception as e:
+            print(f"SMTP connection failed: {str(e)}")
             raise Exception(f"Failed to connect to SMTP server: {str(e)}")
     
     def generate_verification_code(self, length: int = 6) -> str:
