@@ -6,24 +6,24 @@ const TemplateSelector = ({ data, onUpdate, isPremium }) => {
   const standardTemplates = [
     {
       id: 1,
-      name: 'Professional',
-      description: 'Clean and modern design perfect for corporate roles',
+      name: 'Professional Elite',
+      description: 'Premium business design with modern gradients and enhanced typography - perfect for corporate executives',
       preview: '/api/templates/preview/1',
-      features: ['ATS-Friendly', 'Clean Layout', 'Professional Typography']
+      features: ['ATS-Friendly', 'Executive Layout', 'Modern Typography', 'Professional Icons']
     },
     {
       id: 2,
-      name: 'Creative',
-      description: 'Stylish design with color accents for creative positions',
+      name: 'Creative Master',
+      description: 'Vibrant design with stunning gradients and visual elements - ideal for creative professionals and designers',
       preview: '/api/templates/preview/2',
-      features: ['Color Accents', 'Modern Design', 'Visual Appeal']
+      features: ['Color Gradients', 'Creative Design', 'Visual Appeal', 'Modern Icons']
     },
     {
       id: 3,
-      name: 'Minimalist',
-      description: 'Simple and elegant design focusing on content',
+      name: 'Minimalist Pro',
+      description: 'Clean, elegant design with perfect spacing and typography - focusing on content clarity and sophistication',
       preview: '/api/templates/preview/3',
-      features: ['Clean Lines', 'Content Focus', 'Easy to Read']
+      features: ['Ultra Clean', 'Perfect Spacing', 'Typography Focus', 'Professional Polish']
     }
   ];
 

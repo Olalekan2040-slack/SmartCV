@@ -71,35 +71,35 @@ const CVPreview = ({ data, templateId, isPremium }) => {
   // Template styles with enhanced multi-page support
   const getTemplateStyles = (templateId) => {
     const templates = {
-      1: { // Professional
-        containerClass: 'bg-white text-gray-900',
-        headerClass: 'border-b-4 border-blue-600 pb-6 mb-6',
-        sectionClass: 'mb-8 break-inside-avoid',
-        titleClass: 'text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2',
-        textClass: 'text-gray-700',
-        accentColor: 'text-blue-600',
-        nameClass: 'text-4xl font-bold text-gray-900 mb-2',
-        titleTextClass: 'text-xl text-blue-600 mb-4'
+      1: { // Professional - Enhanced with modern business styling
+        containerClass: 'bg-white text-gray-900 shadow-2xl border border-gray-100',
+        headerClass: 'relative bg-gradient-to-r from-slate-50 to-blue-50 border-b-4 border-blue-600 p-8 mb-8 rounded-t-lg',
+        sectionClass: 'mb-10 break-inside-avoid px-2',
+        titleClass: 'text-2xl font-bold text-slate-800 mb-6 border-b-3 border-blue-500 pb-3 relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-blue-600',
+        textClass: 'text-gray-700 leading-relaxed',
+        accentColor: 'text-blue-700 font-medium',
+        nameClass: 'text-5xl font-extrabold text-slate-900 mb-3 tracking-tight',
+        titleTextClass: 'text-xl font-semibold text-blue-700 mb-4 tracking-wide'
       },
-      2: { // Creative
-        containerClass: 'bg-white text-gray-900',
-        headerClass: 'bg-gradient-to-r from-purple-100 to-blue-100 p-8 rounded-lg mb-6',
-        sectionClass: 'mb-8 break-inside-avoid',
-        titleClass: 'text-2xl font-bold text-purple-800 mb-4 border-l-4 border-purple-500 pl-4',
-        textClass: 'text-gray-700',
-        accentColor: 'text-purple-600',
-        nameClass: 'text-4xl font-bold text-purple-900 mb-2',
-        titleTextClass: 'text-xl text-purple-700 mb-4'
+      2: { // Creative - Enhanced with vibrant gradients and modern spacing
+        containerClass: 'bg-white text-gray-900 shadow-2xl border border-purple-100',
+        headerClass: 'relative bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 p-10 rounded-lg mb-8 border-l-8 border-purple-500',
+        sectionClass: 'mb-10 break-inside-avoid px-3',
+        titleClass: 'text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-pink-600 mb-6 border-l-6 border-gradient-to-b from-purple-500 to-pink-500 pl-6 relative before:content-[""] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-gradient-to-b before:from-purple-500 before:to-pink-500',
+        textClass: 'text-gray-700 leading-relaxed',
+        accentColor: 'text-purple-700 font-semibold',
+        nameClass: 'text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-700 mb-3 tracking-tight',
+        titleTextClass: 'text-xl font-semibold text-purple-700 mb-4 tracking-wide'
       },
-      3: { // Minimalist
-        containerClass: 'bg-white text-gray-900',
-        headerClass: 'pb-8 mb-8 border-b border-gray-200',
-        sectionClass: 'mb-10 break-inside-avoid',
-        titleClass: 'text-xl font-semibold text-gray-900 mb-6 uppercase tracking-wider',
-        textClass: 'text-gray-600',
-        accentColor: 'text-gray-800',
-        nameClass: 'text-4xl font-light text-gray-900 mb-2',
-        titleTextClass: 'text-xl text-gray-600 mb-4'
+      3: { // Minimalist - Enhanced with clean typography and perfect spacing
+        containerClass: 'bg-white text-gray-900 shadow-xl border border-gray-50',
+        headerClass: 'pb-10 mb-10 border-b-2 border-gray-300 relative after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-gray-400 after:to-transparent',
+        sectionClass: 'mb-12 break-inside-avoid',
+        titleClass: 'text-xl font-semibold text-gray-900 mb-8 uppercase tracking-wide-custom relative pb-3 after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-px after:bg-gray-600',
+        textClass: 'text-gray-600 leading-relaxed font-light',
+        accentColor: 'text-gray-800 font-medium',
+        nameClass: 'text-5xl font-extralight text-gray-900 mb-4 tracking-wide',
+        titleTextClass: 'text-xl font-light text-gray-600 mb-6 tracking-wide'
       },
       4: { // Executive (Premium)
         containerClass: 'bg-white text-gray-900',
@@ -251,10 +251,10 @@ const CVPreview = ({ data, templateId, isPremium }) => {
         {!isPremium && templateId <= 3 && (
           <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-10">
             <div 
-              className="transform -rotate-45 text-6xl font-bold text-gray-200 opacity-20 select-none"
-              style={{ fontSize: '4rem', zIndex: 1 }}
+              className="transform -rotate-45 text-5xl font-light text-gray-150 opacity-15 select-none tracking-widest"
+              style={{ fontSize: '3.5rem', zIndex: 1, letterSpacing: '0.3em' }}
             >
-              Quadev SmartCV
+              SmartCV • Free Plan
             </div>
           </div>
         )}
@@ -277,31 +277,47 @@ const CVPreview = ({ data, templateId, isPremium }) => {
             <div className={styles.titleTextClass}>
               {previewData.personalInfo.professional_title || previewData.personalInfo.title || 'Professional Title'}
             </div>
-            <div className={`${styles.textClass} flex flex-wrap gap-4 text-base`}>
+            <div className={`${styles.textClass} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-base mt-6`}>
               {(previewData.personalInfo.email || previewData.personalInfo.email_address) && (
-                <span className="flex items-center">
-                  📧 {previewData.personalInfo.email || previewData.personalInfo.email_address}
-                </span>
+                <div className="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg">
+                  <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                  </svg>
+                  <span className="font-medium">{previewData.personalInfo.email || previewData.personalInfo.email_address}</span>
+                </div>
               )}
               {(previewData.personalInfo.phone || previewData.personalInfo.phone_number) && (
-                <span className="flex items-center">
-                  📞 {previewData.personalInfo.phone || previewData.personalInfo.phone_number}
-                </span>
+                <div className="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg">
+                  <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                  </svg>
+                  <span className="font-medium">{previewData.personalInfo.phone || previewData.personalInfo.phone_number}</span>
+                </div>
               )}
               {previewData.personalInfo.location && (
-                <span className="flex items-center">
-                  📍 {previewData.personalInfo.location}
-                </span>
+                <div className="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg">
+                  <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+                  </svg>
+                  <span className="font-medium">{previewData.personalInfo.location}</span>
+                </div>
               )}
               {previewData.personalInfo.linkedin && (
-                <span className="flex items-center">
-                  💼 {previewData.personalInfo.linkedin}
-                </span>
+                <div className="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg">
+                  <svg className="w-4 h-4 text-blue-700" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clipRule="evenodd"/>
+                  </svg>
+                  <span className="font-medium">{previewData.personalInfo.linkedin}</span>
+                </div>
               )}
               {(previewData.personalInfo.website || previewData.personalInfo.portfolio_url) && (
-                <span className="flex items-center">
-                  🌐 {previewData.personalInfo.website || previewData.personalInfo.portfolio_url}
-                </span>
+                <div className="flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg">
+                  <svg className="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd"/>
+                  </svg>
+                  <span className="font-medium">{previewData.personalInfo.website || previewData.personalInfo.portfolio_url}</span>
+                </div>
               )}
             </div>
           </div>
@@ -310,9 +326,11 @@ const CVPreview = ({ data, templateId, isPremium }) => {
           {(previewData.personalInfo.summary || previewData.personalInfo.professional_summary) && (
             <div className={styles.sectionClass}>
               <h2 className={styles.titleClass}>Professional Summary</h2>
-              <p className={`${styles.textClass} text-base leading-relaxed`}>
-                {previewData.personalInfo.summary || previewData.personalInfo.professional_summary}
-              </p>
+              <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                <p className={`${styles.textClass} text-base leading-relaxed italic font-medium text-gray-800`}>
+                  "{previewData.personalInfo.summary || previewData.personalInfo.professional_summary}"
+                </p>
+              </div>
             </div>
           )}
 
@@ -321,25 +339,44 @@ const CVPreview = ({ data, templateId, isPremium }) => {
             <div className={styles.sectionClass}>
               <h2 className={styles.titleClass}>Professional Experience</h2>
               {previewData.experience.map((exp, index) => (
-                <div key={index} className="mb-6 last:mb-0 break-inside-avoid">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {exp.position || exp.job_title}
-                    </h3>
-                    <span className={`${styles.textClass} text-sm font-medium whitespace-nowrap ml-4`}>
-                      {formatDateRange(exp.start_date || exp.startDate, exp.end_date || exp.endDate, exp.is_current || exp.isCurrent)}
-                    </span>
-                  </div>
-                  <div className={`${styles.accentColor} font-medium mb-3`}>
-                    {exp.company || exp.company_name} 
-                    {(exp.location || exp.company_location) && ` • ${exp.location || exp.company_location}`}
+                <div key={index} className="mb-8 last:mb-0 break-inside-avoid bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">
+                        {exp.position || exp.job_title}
+                      </h3>
+                      <div className={`${styles.accentColor} text-lg font-semibold mb-2 flex items-center`}>
+                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-6a1 1 0 00-1-1H9a1 1 0 00-1 1v6a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clipRule="evenodd"/>
+                        </svg>
+                        {exp.company || exp.company_name}
+                        {(exp.location || exp.company_location) && (
+                          <span className="ml-2 text-gray-600 font-normal flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+                            </svg>
+                            {exp.location || exp.company_location}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="ml-4 text-right">
+                      <span className={`${styles.textClass} text-sm font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full whitespace-nowrap`}>
+                        {formatDateRange(exp.start_date || exp.startDate, exp.end_date || exp.endDate, exp.is_current || exp.isCurrent)}
+                      </span>
+                    </div>
                   </div>
                   {exp.description && exp.description.length > 0 && (
-                    <ul className={`${styles.textClass} text-base ml-6 space-y-2`}>
-                      {exp.description.map((item, idx) => (
-                        <li key={idx} className="list-disc leading-relaxed">{item}</li>
-                      ))}
-                    </ul>
+                    <div className="mt-4">
+                      <ul className={`${styles.textClass} text-base space-y-2`}>
+                        {exp.description.map((item, idx) => (
+                          <li key={idx} className="flex items-start leading-relaxed">
+                            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
                 </div>
               ))}
@@ -351,30 +388,47 @@ const CVPreview = ({ data, templateId, isPremium }) => {
             <div className={styles.sectionClass}>
               <h2 className={styles.titleClass}>Education</h2>
               {previewData.education.map((edu, index) => (
-                <div key={index} className="mb-4 last:mb-0 break-inside-avoid">
+                <div key={index} className="mb-6 last:mb-0 break-inside-avoid bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl p-6 shadow-sm">
                   <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        {edu.degree} {(edu.field_of_study || edu.field) && `in ${edu.field_of_study || edu.field}`}
-                      </h3>
-                      <div className={styles.accentColor}>
-                        {edu.school || edu.institution} 
-                        {edu.location && ` • ${edu.location}`}
+                    <div className="flex-1">
+                      <div className="flex items-center mb-2">
+                        <svg className="w-6 h-6 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                        </svg>
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {edu.degree} {(edu.field_of_study || edu.field) && `in ${edu.field_of_study || edu.field}`}
+                        </h3>
+                      </div>
+                      <div className={`${styles.accentColor} text-lg font-semibold mb-2 flex items-center`}>
+                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-6a1 1 0 00-1-1H9a1 1 0 00-1 1v6a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clipRule="evenodd"/>
+                        </svg>
+                        {edu.school || edu.institution}
+                        {edu.location && (
+                          <span className="ml-2 text-gray-600 font-normal flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+                            </svg>
+                            {edu.location}
+                          </span>
+                        )}
                       </div>
                       {edu.gpa && (
-                        <div className={`${styles.textClass} text-sm`}>
+                        <div className={`${styles.textClass} text-sm mb-2 bg-green-100 text-green-800 px-3 py-1 rounded-full inline-block font-semibold`}>
                           GPA: {edu.gpa}
                         </div>
                       )}
                       {edu.description && (
-                        <div className={`${styles.textClass} text-sm mt-1`}>
+                        <div className={`${styles.textClass} text-sm mt-3 bg-white p-3 rounded-lg border border-blue-200`}>
                           {edu.description}
                         </div>
                       )}
                     </div>
-                    <span className={`${styles.textClass} text-sm font-medium whitespace-nowrap ml-4`}>
-                      {formatDateRange(edu.start_date || edu.startDate, edu.end_date || edu.endDate, edu.is_current || edu.isCurrent)}
-                    </span>
+                    <div className="ml-4 text-right">
+                      <span className={`${styles.textClass} text-sm font-semibold bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full whitespace-nowrap`}>
+                        {formatDateRange(edu.start_date || edu.startDate, edu.end_date || edu.endDate, edu.is_current || edu.isCurrent)}
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -384,8 +438,8 @@ const CVPreview = ({ data, templateId, isPremium }) => {
           {/* Skills Section */}
           {previewData.skills.length > 0 && (
             <div className={styles.sectionClass}>
-              <h2 className={styles.titleClass}>Skills</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <h2 className={styles.titleClass}>Skills & Expertise</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {Object.entries(
                   previewData.skills.reduce((acc, skill) => {
                     const category = skill.category || 'Other';
@@ -394,25 +448,38 @@ const CVPreview = ({ data, templateId, isPremium }) => {
                     return acc;
                   }, {})
                 ).map(([category, skills]) => (
-                  <div key={category} className="break-inside-avoid">
-                    <h4 className={`${styles.accentColor} font-semibold mb-3 text-base`}>{category}</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {skills.slice(0, 5).map((skill, index) => (
-                        <span
-                          key={index}
-                          className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full border font-medium"
-                        >
-                          {skill.name}
-                          {skill.proficiency && skill.proficiency !== 'Beginner' && (
-                            <span className="ml-1 text-xs text-gray-500 font-normal">
-                              • {skill.proficiency}
+                  <div key={category} className="break-inside-avoid bg-gradient-to-br from-gray-50 to-blue-50 border border-gray-200 rounded-xl p-6 shadow-sm">
+                    <div className="flex items-center mb-4">
+                      <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                      <h4 className={`${styles.accentColor} font-bold text-lg`}>{category}</h4>
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                      {skills.slice(0, 8).map((skill, index) => {
+                        const getProficiencyColor = (proficiency) => {
+                          switch(proficiency?.toLowerCase()) {
+                            case 'expert': return 'bg-green-500 text-white';
+                            case 'advanced': return 'bg-blue-500 text-white';
+                            case 'intermediate': return 'bg-yellow-500 text-white';
+                            default: return 'bg-gray-500 text-white';
+                          }
+                        };
+                        
+                        return (
+                          <div key={index} className="relative group">
+                            <span className="inline-block bg-white border-2 border-gray-200 text-gray-800 px-4 py-2 rounded-lg font-semibold text-sm shadow-sm hover:shadow-md transition-all duration-200 cursor-default">
+                              {skill.name}
+                              {skill.proficiency && (
+                                <span className={`ml-2 text-xs px-2 py-1 rounded-full ${getProficiencyColor(skill.proficiency)}`}>
+                                  {skill.proficiency}
+                                </span>
+                              )}
                             </span>
-                          )}
-                        </span>
-                      ))}
-                      {skills.length > 5 && (
-                        <span className="text-sm text-gray-500 px-3 py-1 font-medium">
-                          +{skills.length - 5} more
+                          </div>
+                        );
+                      })}
+                      {skills.length > 8 && (
+                        <span className="text-sm text-gray-600 px-4 py-2 bg-gray-100 rounded-lg font-medium border-2 border-dashed border-gray-300">
+                          +{skills.length - 8} more
                         </span>
                       )}
                     </div>
@@ -425,39 +492,64 @@ const CVPreview = ({ data, templateId, isPremium }) => {
           {/* Projects Section */}
           {previewData.projects.length > 0 && (
             <div className={styles.sectionClass}>
-              <h2 className={styles.titleClass}>Projects</h2>
+              <h2 className={styles.titleClass}>Featured Projects</h2>
               {previewData.projects.map((project, index) => (
-                <div key={index} className="mb-5 last:mb-0 break-inside-avoid">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">{project.name}</h3>
+                <div key={index} className="mb-8 last:mb-0 break-inside-avoid bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center mb-2">
+                        <svg className="w-6 h-6 text-purple-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm0 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z" clipRule="evenodd"/>
+                        </svg>
+                        <h3 className="text-xl font-bold text-gray-900">{project.name}</h3>
+                      </div>
+                    </div>
                     {(project.start_date || project.startDate) && (
-                      <span className={`${styles.textClass} text-sm font-medium whitespace-nowrap ml-4`}>
+                      <span className={`${styles.textClass} text-sm font-semibold bg-purple-100 text-purple-800 px-3 py-1 rounded-full whitespace-nowrap ml-4`}>
                         {formatDateRange(project.start_date || project.startDate, project.end_date || project.endDate, project.is_current || project.isCurrent)}
                       </span>
                     )}
                   </div>
                   {project.description && (
-                    <p className={`${styles.textClass} text-base mb-3 leading-relaxed`}>
-                      {project.description}
-                    </p>
+                    <div className="bg-white p-4 rounded-lg border border-purple-200 mb-4">
+                      <p className={`${styles.textClass} text-base leading-relaxed text-gray-800`}>
+                        {project.description}
+                      </p>
+                    </div>
                   )}
                   {project.technologies && project.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-2">
-                      {project.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    <div className="mb-4">
+                      <h5 className="text-sm font-semibold text-gray-700 mb-2">Technologies Used:</h5>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="text-sm bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full font-semibold shadow-sm"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   )}
                   {(project.project_url || project.github_url) && (
-                    <div className="text-sm text-blue-600">
-                      {project.project_url && <span>🔗 Live Demo</span>}
-                      {project.project_url && project.github_url && <span className="mx-2">•</span>}
-                      {project.github_url && <span>📂 GitHub</span>}
+                    <div className="flex space-x-3">
+                      {project.project_url && (
+                        <div className="flex items-center text-sm text-blue-600 bg-blue-100 px-3 py-2 rounded-lg font-semibold">
+                          <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd"/>
+                          </svg>
+                          Live Demo
+                        </div>
+                      )}
+                      {project.github_url && (
+                        <div className="flex items-center text-sm text-gray-600 bg-gray-100 px-3 py-2 rounded-lg font-semibold">
+                          <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd"/>
+                          </svg>
+                          GitHub
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -592,16 +684,16 @@ const CVPreview = ({ data, templateId, isPremium }) => {
 
   function getTemplateName(id) {
     const names = {
-      1: 'Professional',
-      2: 'Creative', 
-      3: 'Minimalist',
+      1: 'Professional Elite',
+      2: 'Creative Master', 
+      3: 'Minimalist Pro',
       4: 'Executive',
       5: 'Tech Modern',
       6: 'Designer Pro',
       7: 'Academic',
       8: 'International'
     };
-    return names[id] || 'Professional';
+    return names[id] || 'Professional Elite';
   }
 };
 
