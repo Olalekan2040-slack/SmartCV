@@ -177,13 +177,44 @@ const CVPreview = ({ data, templateId, isPremium }) => {
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
+    
     try {
-      return new Date(dateString).toLocaleDateString('en-US', {
+      let date;
+      
+      // Handle MM/YYYY format (from forms)
+      if (typeof dateString === 'string' && /^\d{2}\/\d{4}$/.test(dateString)) {
+        const [month, year] = dateString.split('/');
+        date = new Date(parseInt(year), parseInt(month) - 1, 1);
+      }
+      // Handle YYYY-MM-DD format (from date inputs)
+      else if (typeof dateString === 'string' && dateString.includes('-')) {
+        date = new Date(dateString);
+      } 
+      // Handle timestamp
+      else if (!isNaN(dateString)) {
+        date = new Date(parseInt(dateString));
+      }
+      // Handle Date object
+      else if (dateString instanceof Date) {
+        date = dateString;
+      }
+      // Default fallback
+      else {
+        date = new Date(dateString);
+      }
+      
+      // Check if date is valid
+      if (isNaN(date.getTime())) {
+        return dateString; // Return original string if can't parse
+      }
+      
+      return date.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short'
       });
-    } catch {
-      return dateString;
+    } catch (error) {
+      console.warn('Date formatting error:', error);
+      return dateString || '';
     }
   };
 

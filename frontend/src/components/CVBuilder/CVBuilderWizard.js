@@ -51,12 +51,13 @@ const CVBuilderWizard = ({ cvId }) => {
   // Auto-save functionality
   useEffect(() => {
     const autoSave = async () => {
-      if (cvId && Object.keys(cvData.personal_info).length > 0) {
+      if (cvId && Object.keys(cvData.personal_info || {}).length > 0) {
         try {
           await cvService.updateCV(cvId, cvData);
           setLastSaved(new Date().toLocaleTimeString());
         } catch (error) {
           console.error('Auto-save failed:', error);
+          // Don't show alert for auto-save failures to avoid interrupting user
         }
       }
     };
@@ -96,17 +97,36 @@ const CVBuilderWizard = ({ cvId }) => {
   const saveCvData = async () => {
     try {
       setIsLoading(true);
+      
+      // Add debugging
+      console.log('Saving CV data:', cvData);
+      console.log('CV ID:', cvId);
+      
+      let response;
       if (cvId) {
-        await cvService.updateCV(cvId, cvData);
+        response = await cvService.updateCV(cvId, cvData);
       } else {
-        await cvService.createCV(cvData);
+        response = await cvService.createCV(cvData);
         // Handle new CV creation if needed
+        console.log('New CV created:', response.data);
       }
+      
       setLastSaved(new Date().toLocaleTimeString());
       alert('CV saved successfully!');
     } catch (error) {
       console.error('Failed to save CV:', error);
-      alert('Failed to save CV. Please try again.');
+      
+      // More detailed error message
+      let errorMessage = 'Failed to save CV. ';
+      if (error.response) {
+        errorMessage += `Server error: ${error.response.status} - ${error.response.data?.message || error.response.statusText}`;
+      } else if (error.request) {
+        errorMessage += 'Network error - unable to reach server.';
+      } else {
+        errorMessage += error.message;
+      }
+      
+      alert(errorMessage);
     } finally {
       setIsLoading(false);
     }
