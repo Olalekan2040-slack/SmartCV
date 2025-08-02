@@ -194,7 +194,7 @@ const ProjectsForm = ({ data, onUpdate, isPremium }) => {
                     placeholder="E-commerce Website"
                   />
                   {errors[`project_${index}`]?.title && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`project_${index}`].title}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`project_${index}`].title || ''}</p>
                   )}
                 </div>
 
@@ -214,7 +214,7 @@ const ProjectsForm = ({ data, onUpdate, isPremium }) => {
                   />
                   <div className="flex justify-between items-center mt-1">
                     {errors[`project_${index}`]?.description ? (
-                      <p className="text-sm text-red-600">{errors[`project_${index}`].description}</p>
+                      <p className="text-sm text-red-600">{errors[`project_${index}`].description || ''}</p>
                     ) : (
                       <p className="text-sm text-gray-500">Describe the project and your contributions</p>
                     )}
@@ -285,7 +285,7 @@ const ProjectsForm = ({ data, onUpdate, isPremium }) => {
                     </div>
                   </div>
                   {errors[`project_${index}`]?.technologies && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`project_${index}`].technologies}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`project_${index}`].technologies || ''}</p>
                   )}
                 </div>
 
@@ -304,7 +304,7 @@ const ProjectsForm = ({ data, onUpdate, isPremium }) => {
                       placeholder="https://yourproject.com"
                     />
                     {errors[`project_${index}`]?.link && (
-                      <p className="mt-1 text-sm text-red-600">{errors[`project_${index}`].link}</p>
+                      <p className="mt-1 text-sm text-red-600">{errors[`project_${index}`].link || ''}</p>
                     )}
                   </div>
 
@@ -322,7 +322,7 @@ const ProjectsForm = ({ data, onUpdate, isPremium }) => {
                       placeholder="https://github.com/username/project"
                     />
                     {errors[`project_${index}`]?.github_link && (
-                      <p className="mt-1 text-sm text-red-600">{errors[`project_${index}`].github_link}</p>
+                      <p className="mt-1 text-sm text-red-600">{errors[`project_${index}`].github_link || ''}</p>
                     )}
                   </div>
                 </div>

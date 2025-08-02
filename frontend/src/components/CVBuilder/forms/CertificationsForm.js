@@ -176,7 +176,7 @@ const CertificationsForm = ({ data, onUpdate, isPremium }) => {
                     placeholder="AWS Certified Solutions Architect"
                   />
                   {errors[`cert_${index}`]?.name && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].name}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].name || ''}</p>
                   )}
                 </div>
 
@@ -194,7 +194,7 @@ const CertificationsForm = ({ data, onUpdate, isPremium }) => {
                     placeholder="Amazon Web Services"
                   />
                   {errors[`cert_${index}`]?.issuer && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].issuer}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].issuer || ''}</p>
                   )}
                 </div>
               </div>
@@ -215,7 +215,7 @@ const CertificationsForm = ({ data, onUpdate, isPremium }) => {
                     maxLength="7"
                   />
                   {errors[`cert_${index}`]?.date_issued && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].date_issued}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].date_issued || ''}</p>
                   )}
                 </div>
 
@@ -235,7 +235,7 @@ const CertificationsForm = ({ data, onUpdate, isPremium }) => {
                     disabled={!cert.expires}
                   />
                   {errors[`cert_${index}`]?.expiry_date && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].expiry_date}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].expiry_date || ''}</p>
                   )}
                 </div>
 
@@ -266,7 +266,7 @@ const CertificationsForm = ({ data, onUpdate, isPremium }) => {
                   placeholder="https://www.credly.com/badges/..."
                 />
                 {errors[`cert_${index}`]?.credential_url && (
-                  <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].credential_url}</p>
+                  <p className="mt-1 text-sm text-red-600">{errors[`cert_${index}`].credential_url || ''}</p>
                 )}
                 <p className="mt-1 text-sm text-gray-500">
                   Link to verify your certification (e.g., Credly, official certificate)

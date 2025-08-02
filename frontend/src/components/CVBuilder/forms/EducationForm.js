@@ -199,7 +199,7 @@ const EducationForm = ({ data, onUpdate, isPremium }) => {
                 placeholder="University of Example"
               />
               {errors[`education_${index}`]?.school && (
-                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].school}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].school || ''}</p>
               )}
             </div>
 
@@ -220,7 +220,7 @@ const EducationForm = ({ data, onUpdate, isPremium }) => {
                 ))}
               </select>
               {errors[`education_${index}`]?.degree && (
-                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].degree}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].degree || ''}</p>
               )}
             </div>
           </div>
@@ -240,7 +240,7 @@ const EducationForm = ({ data, onUpdate, isPremium }) => {
                 placeholder="Computer Science"
               />
               {errors[`education_${index}`]?.field && (
-                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].field}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].field || ''}</p>
               )}
             </div>
 
@@ -274,7 +274,7 @@ const EducationForm = ({ data, onUpdate, isPremium }) => {
                 maxLength="7"
               />
               {errors[`education_${index}`]?.start_date && (
-                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].start_date}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].start_date || ''}</p>
               )}
             </div>
 
@@ -294,7 +294,7 @@ const EducationForm = ({ data, onUpdate, isPremium }) => {
                 disabled={education.is_current}
               />
               {errors[`education_${index}`]?.end_date && (
-                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].end_date}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`education_${index}`].end_date || ''}</p>
               )}
             </div>
 

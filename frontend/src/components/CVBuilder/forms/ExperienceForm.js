@@ -256,7 +256,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
                 placeholder="Software Developer"
               />
               {errors[`experience_${expIndex}`]?.job_title && (
-                <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].job_title}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].job_title || ''}</p>
               )}
             </div>
 
@@ -274,7 +274,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
                 placeholder="Tech Company Inc."
               />
               {errors[`experience_${expIndex}`]?.company && (
-                <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].company}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].company || ''}</p>
               )}
             </div>
           </div>
@@ -295,7 +295,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
                 maxLength="7"
               />
               {errors[`experience_${expIndex}`]?.start_date && (
-                <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].start_date}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].start_date || ''}</p>
               )}
             </div>
 
@@ -315,7 +315,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
                 disabled={experience.is_current}
               />
               {errors[`experience_${expIndex}`]?.end_date && (
-                <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].end_date}</p>
+                <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].end_date || ''}</p>
               )}
             </div>
 
@@ -395,7 +395,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
             ))}
 
             {errors[`experience_${expIndex}`]?.description && (
-              <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].description}</p>
+              <p className="mt-1 text-sm text-red-600">{errors[`experience_${expIndex}`].description || ''}</p>
             )}
 
             {/* AI Suggestions */}

@@ -151,7 +151,7 @@ const ReferencesForm = ({ data, onUpdate, isPremium }) => {
                     placeholder="John Smith"
                   />
                   {errors[`ref_${index}`]?.name && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`ref_${index}`].name}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`ref_${index}`].name || ''}</p>
                   )}
                 </div>
 
@@ -172,7 +172,7 @@ const ReferencesForm = ({ data, onUpdate, isPremium }) => {
                     ))}
                   </select>
                   {errors[`ref_${index}`]?.relationship && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`ref_${index}`].relationship}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`ref_${index}`].relationship || ''}</p>
                   )}
                 </div>
               </div>
@@ -205,7 +205,7 @@ const ReferencesForm = ({ data, onUpdate, isPremium }) => {
                     placeholder="email@example.com or +1 (555) 123-4567"
                   />
                   {errors[`ref_${index}`]?.contact && (
-                    <p className="mt-1 text-sm text-red-600">{errors[`ref_${index}`].contact}</p>
+                    <p className="mt-1 text-sm text-red-600">{errors[`ref_${index}`].contact || ''}</p>
                   )}
                 </div>
               </div>
