@@ -129,7 +129,7 @@ const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
         current_summary: formData.summary,
         context: 'professional_summary'
       });
-      setAiSuggestion(String(response.data.suggestion || ''));
+      setAiSuggestion(response.data.suggestion || '');
     } catch (error) {
       console.error('Failed to get AI suggestion:', error);
       alert('Failed to get AI suggestion. Please try again.');
@@ -368,7 +368,7 @@ const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
                 </button>
               </div>
             </div>
-            <p className="text-sm text-gray-700">{String(aiSuggestion)}</p>
+            <p className="text-sm text-gray-700">{aiSuggestion || ''}</p>
           </div>
         )}
       </div>
@@ -379,7 +379,7 @@ const PersonalInfoForm = ({ data, onUpdate, isPremium }) => {
           <h4 className="text-sm font-medium text-red-900 mb-2">Please fix the following errors:</h4>
           <ul className="text-sm text-red-700 space-y-1">
             {Object.entries(errors).map(([field, error]) => (
-              <li key={field}>• {String(error)}</li>
+              <li key={field}>• {error || ''}</li>
             ))}
           </ul>
         </div>

@@ -168,7 +168,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
       setAiSuggestions(prev => ({ 
         ...prev, 
         [expIndex]: Array.isArray(response.data.suggestions) 
-          ? response.data.suggestions.map(s => String(s)) 
+          ? response.data.suggestions.map(s => s || '') 
           : []
       }));
     } catch (error) {
@@ -405,11 +405,11 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
                 <div className="space-y-2">
                   {aiSuggestions[expIndex].map((suggestion, index) => (
                     <div key={index} className="flex items-start justify-between p-2 bg-white rounded border">
-                      <span className="text-sm text-gray-700 flex-1">• {String(suggestion)}</span>
+                      <span className="text-sm text-gray-700 flex-1">• {suggestion || ''}</span>
                       <button
                         onClick={() => {
                           const currentDescription = [...experienceList[expIndex].description];
-                          currentDescription.push(String(suggestion));
+                          currentDescription.push(suggestion || '');
                           handleDescriptionChange(expIndex, currentDescription);
                         }}
                         className="ml-2 px-2 py-1 bg-purple-600 text-white text-xs rounded hover:bg-purple-700"
@@ -436,9 +436,9 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
                 <ul className="ml-4 mt-1">
                   {typeof errorObj === 'object' && errorObj !== null ? 
                     Object.entries(errorObj).map(([field, error]) => (
-                      <li key={field}>• {String(error)}</li>
+                      <li key={field}>• {error || ''}</li>
                     )) : (
-                      <li>• {String(errorObj)}</li>
+                      <li>• {errorObj || ''}</li>
                     )
                   }
                 </ul>

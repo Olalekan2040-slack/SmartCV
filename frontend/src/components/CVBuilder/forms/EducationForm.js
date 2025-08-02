@@ -337,9 +337,9 @@ const EducationForm = ({ data, onUpdate, isPremium }) => {
                 <ul className="ml-4 mt-1">
                   {typeof errorObj === 'object' && errorObj !== null ? 
                     Object.entries(errorObj).map(([field, error]) => (
-                      <li key={field}>• {String(error)}</li>
+                      <li key={field}>• {error || ''}</li>
                     )) : (
-                      <li>• {String(errorObj)}</li>
+                      <li>• {errorObj || ''}</li>
                     )
                   }
                 </ul>
