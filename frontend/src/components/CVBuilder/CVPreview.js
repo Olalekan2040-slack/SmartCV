@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import html2pdf from 'html2pdf.js';
+import htmlDocx from 'html-docx-js/dist/html-docx';
 import './CVPreview.css';
 
 const CVPreview = ({ data, templateId, isPremium }) => {
@@ -51,6 +52,127 @@ const CVPreview = ({ data, templateId, isPremium }) => {
     } catch (error) {
       console.error('Export failed:', error);
       alert('Export failed. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  // Export to Word functionality
+  const exportToWord = async () => {
+    if (!previewRef.current) return;
+    
+    setIsExporting(true);
+    try {
+      const element = previewRef.current;
+      
+      // Clone the element to avoid modifying the original
+      const clonedElement = element.cloneNode(true);
+      
+      // Add basic styling for Word document
+      const styleElement = document.createElement('style');
+      styleElement.innerHTML = `
+        body { 
+          font-family: 'Times New Roman', serif; 
+          font-size: 12pt; 
+          line-height: 1.5; 
+          color: #000000;
+          margin: 1in;
+        }
+        h1, h2, h3, h4, h5, h6 { 
+          color: #2563eb; 
+          margin-top: 16pt; 
+          margin-bottom: 8pt; 
+        }
+        h1 { font-size: 24pt; font-weight: bold; }
+        h2 { font-size: 18pt; font-weight: bold; }
+        h3 { font-size: 14pt; font-weight: bold; }
+        p { margin-bottom: 8pt; }
+        ul, ol { margin-left: 20pt; }
+        li { margin-bottom: 4pt; }
+        .bg-gradient-to-r, .bg-gradient-to-br, .bg-blue-50, .bg-purple-50, .bg-gray-50 {
+          background: #f8f9fa !important;
+          border: 1px solid #e9ecef;
+          padding: 8pt;
+          margin: 4pt 0;
+        }
+        .text-blue-600, .text-purple-600, .text-green-600, .text-orange-600 {
+          color: #2563eb !important;
+        }
+        .font-bold { font-weight: bold; }
+        .font-semibold { font-weight: 600; }
+        .text-sm { font-size: 10pt; }
+        .text-base { font-size: 12pt; }
+        .text-lg { font-size: 14pt; }
+        .text-xl { font-size: 16pt; }
+        .text-2xl { font-size: 18pt; }
+        .text-4xl { font-size: 24pt; }
+        .text-5xl { font-size: 28pt; }
+        .mb-2 { margin-bottom: 8pt; }
+        .mb-4 { margin-bottom: 12pt; }
+        .mb-6 { margin-bottom: 16pt; }
+        .mb-8 { margin-bottom: 20pt; }
+        .mt-4 { margin-top: 12pt; }
+        .mt-6 { margin-top: 16pt; }
+        .p-6 { padding: 16pt; }
+        .px-3 { padding-left: 8pt; padding-right: 8pt; }
+        .py-2 { padding-top: 6pt; padding-bottom: 6pt; }
+        svg { display: none; }
+        .grid { display: block; }
+        .flex { display: block; }
+        .rounded-lg, .rounded-xl, .rounded-full { border-radius: 0; }
+        .shadow-sm, .shadow-lg, .shadow-2xl { box-shadow: none; }
+        .border { border: 1px solid #e9ecef; }
+        .space-y-2 > * + * { margin-top: 6pt; }
+        .space-y-4 > * + * { margin-top: 12pt; }
+        .break-inside-avoid { page-break-inside: avoid; }
+      `;
+      
+      // Create a temporary container with the styled content
+      const tempContainer = document.createElement('div');
+      tempContainer.appendChild(styleElement);
+      tempContainer.appendChild(clonedElement);
+      
+      // Remove watermark and unnecessary elements for Word export
+      const watermark = tempContainer.querySelector('.fixed.inset-0');
+      if (watermark) watermark.remove();
+      
+      // Remove interactive elements like buttons and controls
+      const buttons = tempContainer.querySelectorAll('button');
+      buttons.forEach(btn => btn.remove());
+      
+      // Convert HTML to DOCX
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <title>CV - ${previewData.personalInfo.full_name || previewData.personalInfo.fullName || 'CV'}</title>
+            ${styleElement.outerHTML}
+          </head>
+          <body>
+            ${clonedElement.innerHTML}
+          </body>
+        </html>
+      `;
+      
+      const converted = htmlDocx.asBlob(htmlContent);
+      
+      // Create download link
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(converted);
+      link.download = `${previewData.personalInfo.full_name || previewData.personalInfo.fullName || 'CV'}.docx`;
+      
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Clean up
+      URL.revokeObjectURL(link.href);
+      
+    } catch (error) {
+      console.error('Word export failed:', error);
+      alert('Word export failed. Please try again.');
     } finally {
       setIsExporting(false);
     }
@@ -688,6 +810,23 @@ const CVPreview = ({ data, templateId, isPremium }) => {
             <>
               <span>📄</span>
               <span>Download PDF</span>
+            </>
+          )}
+        </button>
+        <button 
+          onClick={exportToWord}
+          disabled={isExporting}
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+        >
+          {isExporting ? (
+            <>
+              <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+              <span>Exporting...</span>
+            </>
+          ) : (
+            <>
+              <span>📝</span>
+              <span>Download Word</span>
             </>
           )}
         </button>
