@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { aiService } from '../../../services/api';
 
 const ExperienceForm = ({ data, onUpdate, isPremium }) => {
@@ -92,7 +92,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
     onUpdate('experience', updatedExperience);
   };
 
-  const handleDescriptionChange = (expIndex, descIndex, value) => {
+  const handleDescriptionChange = useCallback((expIndex, descIndex, value) => {
     const updatedExperience = [...experienceList];
     const updatedDescriptions = [...updatedExperience[expIndex].description];
     updatedDescriptions[descIndex] = value;
@@ -101,7 +101,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
     setExperienceList(updatedExperience);
     validateExperience(updatedExperience[expIndex], expIndex);
     onUpdate('experience', updatedExperience);
-  };
+  }, [experienceList, errors, onUpdate]);
 
   const addDescription = (expIndex) => {
     const updatedExperience = [...experienceList];

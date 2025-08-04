@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef, useEffect } from 'react';
+import React, { useMemo, useState, useRef, useEffect, useCallback } from 'react';
 import html2pdf from 'html2pdf.js';
 import htmlDocx from 'html-docx-js/dist/html-docx';
 import './CVPreview.css';
@@ -25,7 +25,7 @@ const CVPreview = ({ data, templateId, isPremium }) => {
   }, [data]);
 
   // Export functionality
-  const exportToPDF = async () => {
+  const exportToPDF = useCallback(async () => {
     if (!previewRef.current) return;
     
     setIsExporting(true);
@@ -55,10 +55,10 @@ const CVPreview = ({ data, templateId, isPremium }) => {
     } finally {
       setIsExporting(false);
     }
-  };
+  }, [previewData.personalInfo.full_name, previewData.personalInfo.fullName]);
 
   // Export to Word functionality
-  const exportToWord = async () => {
+  const exportToWord = useCallback(async () => {
     if (!previewRef.current) return;
     
     setIsExporting(true);
@@ -176,7 +176,7 @@ const CVPreview = ({ data, templateId, isPremium }) => {
     } finally {
       setIsExporting(false);
     }
-  };
+  }, [previewData.personalInfo.full_name, previewData.personalInfo.fullName]);
 
   // Listen for export events from parent component
   useEffect(() => {

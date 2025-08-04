@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import PersonalInfoForm from './forms/PersonalInfoForm';
 import EducationForm from './forms/EducationForm';
@@ -48,6 +48,20 @@ const CVBuilderWizard = ({ cvId }) => {
   // Check if user is premium
   const isPremium = user?.subscription_status === 'active' || user?.email === 'olalekanquadri58@gmail.com';
 
+  // Load existing CV data
+  const loadCvData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await cvService.getCV(cvId);
+      setCvData(response.data);
+      setSelectedTemplate(response.data.template_id || 1);
+    } catch (error) {
+      console.error('Failed to load CV data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [cvId]);
+
   // Auto-save functionality
   useEffect(() => {
     const autoSave = async () => {
@@ -65,20 +79,6 @@ const CVBuilderWizard = ({ cvId }) => {
     const timer = setTimeout(autoSave, 2000);
     return () => clearTimeout(timer);
   }, [cvData, cvId]);
-
-  // Load existing CV data
-  const loadCvData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await cvService.getCV(cvId);
-      setCvData(response.data);
-      setSelectedTemplate(response.data.template_id || 1);
-    } catch (error) {
-      console.error('Failed to load CV data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
     if (cvId) {
