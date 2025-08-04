@@ -84,7 +84,7 @@ const CVBuilderWizard = ({ cvId }) => {
     if (cvId) {
       loadCvData();
     }
-  }, [cvId]); // Remove loadCvData from dependencies to avoid circular reference
+  }, [cvId, loadCvData]);
 
   const updateCvData = (section, data) => {
     setCvData(prev => ({

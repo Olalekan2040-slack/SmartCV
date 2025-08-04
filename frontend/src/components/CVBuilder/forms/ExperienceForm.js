@@ -179,18 +179,18 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
     }
   };
 
-  const handleUseAiSuggestion = (expIndex, suggestion) => {
-    const updatedExperience = [...experienceList];
-    updatedExperience[expIndex].description.push(suggestion);
-    setExperienceList(updatedExperience);
-    onUpdate('experience', updatedExperience);
+  // const handleUseAiSuggestion = (expIndex, suggestion) => {
+  //   const updatedExperience = [...experienceList];
+  //   updatedExperience[expIndex].description.push(suggestion);
+  //   setExperienceList(updatedExperience);
+  //   onUpdate('experience', updatedExperience);
     
-    // Remove used suggestion
-    setAiSuggestions(prev => ({
-      ...prev,
-      [expIndex]: prev[expIndex].filter(s => s !== suggestion)
-    }));
-  };
+  //   // Remove used suggestion
+  //   setAiSuggestions(prev => ({
+  //     ...prev,
+  //     [expIndex]: prev[expIndex].filter(s => s !== suggestion)
+  //   }));
+  // };
 
   const formatDateInput = (value) => {
     const numbers = value.replace(/\D/g, '');
@@ -207,7 +207,7 @@ const ExperienceForm = ({ data, onUpdate, isPremium }) => {
         handleDescriptionChange(index, 0, '');
       }
     });
-  }, [experienceList]);
+  }, [experienceList, handleDescriptionChange]);
 
   return (
     <div className="space-y-6">

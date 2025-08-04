@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { authAPI } from '../services/api';
 import toast from 'react-hot-toast';
-import { handleError, ERROR_TYPES } from '../utils/errorHandler';
+import { handleError } from '../utils/errorHandler';
 
 const AuthContext = createContext();
 
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setLoading(false);
     }
-  }, [token]); // Remove fetchUser from dependencies to avoid circular reference
+  }, [token, fetchUser]);
 
   const login = async (email, password) => {
     try {

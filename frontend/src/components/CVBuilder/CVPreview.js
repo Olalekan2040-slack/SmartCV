@@ -188,7 +188,7 @@ const CVPreview = ({ data, templateId, isPremium }) => {
     return () => {
       document.removeEventListener('exportCV', handleExportEvent);
     };
-  }, []);
+  }, [exportToPDF]);
 
   // Template styles with enhanced multi-page support
   const getTemplateStyles = (templateId) => {

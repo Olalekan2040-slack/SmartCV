@@ -132,7 +132,7 @@ export const measurePerformance = (name, fn) => {
   };
 };
 
-export default {
+const errorHandlerExports = {
   SmartCVError,
   ERROR_TYPES,
   handleError,
@@ -140,3 +140,5 @@ export default {
   useErrorHandler,
   measurePerformance
 };
+
+export default errorHandlerExports;
